@@ -1,1 +1,2 @@
-# Python-Scripts
+# Python Scripts
+* Collecting all the python scripts
