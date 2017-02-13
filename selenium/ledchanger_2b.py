@@ -11,8 +11,8 @@ def usage():
 
 def ledchanger():
 	aqua, browser = sys.argv[1], sys.argv[2]
-	email = os.environ['MY_LOGIN']
-	pwd = os.environ['MY_PASSWORD']
+	email = os.environ['USER']
+	pwd = os.environ['PASSWORD']
 	p = re.compile(r'https://.+?com/(\w)')
 
 	if browser.lower() == 'firefox':
@@ -20,13 +20,13 @@ def ledchanger():
 	elif browser.lower() == 'chrome':
 		driver = webdriver.Chrome()
 
-	if aqua.lower() == 'rc':
-		driver.get('http://aqua-rc.umbocv-inc.com')
-	elif aqua.lower() == 'staging':
-		driver.get('http://aqua.umbocv-inc.com')
-	elif aqua.lower() == 'production':
-		driver.get('http://aqua.umbocv.com')
-	assert 'Umbo CV Portal' in driver.title
+	if aqua.lower() == '1':
+		driver.get('url1')
+	elif aqua.lower() == '2':
+		driver.get('url2')
+	elif aqua.lower() == '3':
+		driver.get('url3')
+	assert 'keyword' in driver.title
 
 	elem_email = driver.find_element_by_name('email')
 	elem_email.clear()
