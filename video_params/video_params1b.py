@@ -18,21 +18,15 @@ def change_resolution():
 	n2 = 0
 	resolution = [
 	'',
-	'config_cmd Video0:width 1280 Video0:height 720 Video0:fps 10',
-	'config_cmd Video0:width 1280 Video0:height 720 Video0:fps 15',
-	'config_cmd Video0:width 1280 Video0:height 720 Video0:fps 20',
-	'config_cmd Video0:width 1920 Video0:height 1080 Video0:fps 10',
-	'config_cmd Video0:width 1920 Video0:height 1080 Video0:fps 15',
-	'config_cmd Video0:width 1920 Video0:height 1080 Video0:fps 20'
+	'cmd1',
+	'cmd2',
+	'cmd3'
 	]
-	lilith = [
+	li = [
 	'',
-	'lilith -k WSTransport',
-	'lilith -s WSTransport',
-	'lilith -r WSTransport',
-	'lilith -k MediaRec',
-	'lilith -s MediaRec; lilith -s EventMgr',
-	'lilith -r MediaRec; lilith -r EventMgr'
+	'cmd1',
+	'cmd2',
+	'cmd3'
 	]
 	
 	if len(schedule) % 2 == 0 and len(schedule) / 2 == len(interval) + 1:
@@ -59,11 +53,11 @@ def change_resolution():
 				if resolution[x]:
 					c.exec_command(cmd)
 					print('Executed:', cmd[22:], time_ref()[2], time.time())
-				if lilith[y]:
+				if li[y]:
 					c.exec_command(cmd2)
 					print('Lilith executed:', cmd2[22:], time_ref()[2], time.time())
 					if y == 7:
-						print('Waiting lilith to restart...')
+						print('Waiting li to restart...')
 						time.sleep(15)
 				start_time += interval_time
 				file_date = time_ref()[3]
@@ -95,7 +89,7 @@ def get_recording():
 if __name__ == '__main__':
 	try:
 		address, schedule, interval, time_input = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-		usr, pwd = os.environ['CAMUSERID'], os.environ['CAMPASSWORD']
+		usr, pwd = os.environ['USER'], os.environ['CPASSWORD']
 		file_dates = []
 		change_resolution()
 		get_recording()
