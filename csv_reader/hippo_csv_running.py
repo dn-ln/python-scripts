@@ -4,7 +4,7 @@ import time as t
 from datetime import datetime, date, time, timedelta
 
 def hippo_csv_reader():
-	usr, pwd = os.environ['HELPDESK_DBUSER'], os.environ['HELPDESK_DBPASS']
+	usr, pwd = os.environ['USER'], os.environ['PASSWORD']
 	os.environ['PYTHONIOENCODING'] = 'utf-8'
 	DEVNULL = open(os.devnull, 'wb')
 
@@ -17,11 +17,11 @@ def hippo_csv_reader():
 		print('\033[92m' + 'Waiting for:', '\033[0m' + str(exec_time - start_time))
 		t.sleep(exec_time.timestamp() - start_time.timestamp())
 
-		subprocess.Popen('python2 helpdesk.py roi production --user={} --password="{}"'.format(usr, pwd), stdout=DEVNULL, shell=True, cwd='/home/umbo/OmniOwl/Portal/DBQuery').communicate()
+		subprocess.Popen('python2 the_script.py roi production --user={} --password="{}"'.format(usr, pwd), stdout=DEVNULL, shell=True, cwd='to/targeted/path').communicate()
 		print('Writing to the file at: %s' % datetime.now())
-		with open('/home/umbo/OmniOwl/Portal/DBQuery/hippo.csv') as f:
+		with open('the_csv_file.csv') as f:
 			reader = csv.DictReader(f)
-			with open('./hippoResult/hippoResult_%s.txt' % exec_time.strftime('%Y%m%d_%H:%M'), 'a') as f2:
+			with open('./hippoResult/the_result_%s.txt' % exec_time.strftime('%Y%m%d_%H:%M'), 'a') as f2:
 				fieldnames = ["Is Online", "CamOn_withROI", "CamOff_withROI"]
 				writer = csv.DictWriter(f2, fieldnames=fieldnames)
 				writer.writeheader()
