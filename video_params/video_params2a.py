@@ -17,10 +17,12 @@ def change_resolution():
 	n1 = 0
 	n2 = 0
 	resolution = [
-	'config_cmd Video0:width 1280 Video0:height 720',
-	'config_cmd Video0:width 1920 Video0:height 1080'
+	'',
+	'cmd1',
+	'cmd2',
+	'cmd3'
 	]
-	fps = ['Video0:fps 10', 'Video0:fps 15', 'Video0:fps 20']
+	fps = ['cmd1', 'cmd2', 'cmd3']
 
 	#if len(schedule) % 2 == 0 and len(schedule) == len(interval) + 1:
 	if len(schedule) % 2 == 0 and len(schedule) / 2 == len(interval) + 1:
@@ -68,7 +70,7 @@ def get_recording():
 	time.sleep(60)
 	print('Retrieving files...')
 	for file_date in file_dates:
-		pex = pexpect.spawn('scp {}@{}:/mnt/sdcard/{}/{}/{}* /home/deanlin/Videos/'.format(usr, address, file_date[0], file_date[1], file_date[2]))
+		pex = pexpect.spawn('scp {}@{}:/the/path/{}/{}/{}* /home/deanlin/Videos/'.format(usr, address, file_date[0], file_date[1], file_date[2]))
 		pex.expect('password:')
 		pex.sendline(pwd)
 		pex.expect(pexpect.EOF)
@@ -77,7 +79,7 @@ def get_recording():
 if __name__ == '__main__':
 	try:
 		address, schedule, interval, time_input = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-		usr, pwd = os.environ['CAMUSERID'], os.environ['CAMPASSWORD']
+		usr, pwd = os.environ['USER'], os.environ['PASSWORD']
 		file_dates = []
 		change_resolution()
 		get_recording()

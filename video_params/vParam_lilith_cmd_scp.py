@@ -5,25 +5,19 @@ import pexpect, paramiko
 
 class Video_Params_Record:
 	def __init__(self):
-		self.usr = os.environ['CAMUSERID']
-		self.pwd =  os.environ['CAMPASSWORD']
+		self.usr = os.environ['USER']
+		self.pwd =  os.environ['PASSWORD']
 		self.resolution = [
 		'',
-		'config_cmd Video0:width 1280 Video0:height 720 Video0:fps 10',
-		'config_cmd Video0:width 1280 Video0:height 720 Video0:fps 15',
-		'config_cmd Video0:width 1280 Video0:height 720 Video0:fps 20',
-		'config_cmd Video0:width 1920 Video0:height 1080 Video0:fps 10',
-		'config_cmd Video0:width 1920 Video0:height 1080 Video0:fps 15',
-		'config_cmd Video0:width 1920 Video0:height 1080 Video0:fps 20'
+		'cmd1',
+		'cmd2',
+		'cmd3'
 		]
-		self.lilith = [
+		self.li = [
 		'',
-		'lilith -k WSTransport',
-		'lilith -s WSTransport',
-		'lilith -r WSTransport',
-		'lilith -k MediaRec',
-		'lilith -s MediaRec; lilith -s EventMgr',
-		'lilith -s MediaRec; lilith -s EventMgr; lilith -s WSTransport'
+		'cmd1',
+		'cmd2',
+		'cmd3'
 		]
 
 	def get_argv(self):
@@ -56,7 +50,7 @@ class Video_Params_Record:
 			c.load_system_host_keys()
 			c.connect(self.address, username=self.usr, password=self.pwd, timeout=20)
 			with open('get_record_log.txt', 'w') as f:
-			c.exec_command('nohup lilith -o MediaRec')
+			c.exec_command('nohup the_cmd')
 			print('Waiting for command to be executed.')
 
 			n1 = 0
@@ -66,7 +60,7 @@ class Video_Params_Record:
 				x = int(schedule[n1:n1+2][0])
 				y = int(schedule[n1:n1+2][1])
 				cmd = 'PATH=$PATH:/usr/sbin; {}'.format(self.resolution[x])
-				cmd2 = 'PATH=$PATH:/usr/sbin; {}'.format(self.lilith[y])
+				cmd2 = 'PATH=$PATH:/usr/sbin; {}'.format(self.li[y])
 				if interval[n2:]:
 					interval_time = int(interval[n2]) * 60
 				now = self.get_time(0)
@@ -80,15 +74,15 @@ class Video_Params_Record:
 					if self.lilith[y]:
 						c.exec_command(cmd2)
 						file_date_li = self.get_time(3)
-						print('Lilith executed:', cmd2[22:], self.get_time(2))
+						print('Li executed:', cmd2[22:], self.get_time(2))
 						if y == 7:
-							print('Waiting lilith to restart...')
+							print('Waiting li to restart...')
 							time.sleep(15)
 					start_time += interval_time
 
 					if 'file_date_li' in locals(): 
 						self.file_dates.append(file_date_li)
-						print('Append file date from lilith cmd.')
+						print('Append file date from li cmd.')
 					elif 'file_date_re' in locals(): 
 						self.file_dates.append(file_date_re)
 						print('Append file date from resolution cmd.')

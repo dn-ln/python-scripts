@@ -18,19 +18,15 @@ def change_resolution():
 	n2 = 0
 	resolution = [
 	'',
-	'config_cmd Video0:width 1280 Video0:height 720',
-	'config_cmd Video0:width 1920 Video0:height 1080'
+	'cmd1',
+	'cmd2',
+	'cmd3'
 	]
-	lilith = [
+	li = [
 	'',
-	'lilith -k WSTransport',
-	'lilith -s WSTransport',
-	'lilith -r WSTransport',
-	'lilith -k MediaRec',
-	'lilith -s MediaRec; lilith -s EventMgr',
-	'lilith -r MediaRec; lilith -r EventMgr',
-	'lilith -r all',
-	'lilith -s MediaRec; lilith -s EventMgr; lilith -k WSTransport'
+	'cmd1',
+	'cmd2',
+	'cmd3'
 	]
 
 	if len(schedule) % 2 == 0 and len(schedule) / 2 == len(interval) + 1:
@@ -46,7 +42,7 @@ def change_resolution():
 			x = int(schedule[n1:n1+2][0])
 			y = int(schedule[n1:n1+2][1])
 			cmd = 'PATH=$PATH:/usr/sbin; {}'.format(resolution[x])
-			cmd2 = 'PATH=$PATH:/usr/sbin; {}'.format(lilith[y])
+			cmd2 = 'PATH=$PATH:/usr/sbin; {}'.format(li[y])
 			if interval[n2:]:
 				interval_time = int(interval[n2]) * 60
 			now = time_ref()[0]
@@ -56,7 +52,7 @@ def change_resolution():
 				if resolution[x]:
 					c.exec_command(cmd)
 					print('Executed:', cmd[22:], time_ref()[2], time.time())
-				if lilith[y]:
+				if li[y]:
 					c.exec_command(cmd2)
 					print('Lilith executed:', cmd2[22:], time_ref()[2], time.time())
 				start_time += interval_time
@@ -85,7 +81,7 @@ def get_recording():
 	time.sleep(80)
 	print('Retrieving files...')
 	for file_date in file_dates:
-		pex = pexpect.spawn('scp {}@{}:/mnt/sdcard/{}/{}/{}* /home/deanlin/Videos/'.format(usr, address, file_date[0], file_date[1], file_date[2]))
+		pex = pexpect.spawn('scp {}@{}:/the/path/{}/{}/{}* /home/deanlin/Videos/'.format(usr, address, file_date[0], file_date[1], file_date[2]))
 		pex.expect('password:')
 		pex.sendline(pwd)
 		pex.expect(pexpect.EOF)
@@ -94,7 +90,7 @@ def get_recording():
 if __name__ == '__main__':
 	try:
 		address, schedule, interval, time_input = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-		usr, pwd = os.environ['CAMUSERID'], os.environ['CAMPASSWORD']
+		usr, pwd = os.environ['USER'], os.environ['PASSWORD']
 		file_dates = []
 		change_result = change_resolution()
 		if change_result:
