@@ -10,7 +10,7 @@ try:
   ssh.connect(ip, username = usr, password = pwd)
 
   while True:
-    cmd = input('root@<ip>: ')
+    cmd = input('xxx@<ip>: ')
     stdin, stdout, stderr = ssh.exec_command(cmd)
     lines = stdout.readlines()
     print(type(stdout))
