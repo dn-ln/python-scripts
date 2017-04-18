@@ -13,9 +13,9 @@ class Signal_Server_Change():
 
 	def get_cam_ip(self):
 		if self.server_replaced.lower() == 'rc':
-			mc = MongoClient('mongodb://mongo-rc.umbocv-inc.com') 
+			mc = MongoClient('url') 
 		elif self.server_replaced.lower() == 'staging':
-			mc = MongoClient('mongodb://mongo.umbocv-inc.com')	
+			mc = MongoClient('url')	
 		db = mc['hippo-staging']
 		db_collection_cameras = db['cameras']
 		self.ip_list = []
@@ -43,30 +43,30 @@ class Signal_Server_Change():
 
 	def replace_text(self, c):
 		if self.server_replaced.lower() == 'rc':
-			stdin, stdout, stderr = c.exec_command('grep -q "silk-rc" "/etc/umbo/config.ini" && echo found')
+			stdin, stdout, stderr = c.exec_command('grep -q "silk-rc" "config_file_path" && echo found')
 			grep_result = stdout.read().decode().rstrip()
 			if grep_result == 'found':
 				if self.server_to_replace.lower() == 'staging':
-					c.exec_command('sed -i -- "s/silk-rc/silk-staging/g" /etc/umbo/config.ini')
-					c.exec_command('PATH=$PATH:/usr/sbin; lilith -r all')
+					c.exec_command('sed -i -- "s/silk-rc/silk-staging/g" config_file_path')
+					c.exec_command('PATH=$PATH:/usr/sbin; restart_command')
 					print('Change from RC to Staging.')
 				elif self.server_to_replace.lower() == 'production':
-					c.exec_command('sed -i -- "s/silk-rc/silk/g" /etc/umbo/config.ini')
-					c.exec_command('PATH=$PATH:/usr/sbin; lilith -r all')
+					c.exec_command('sed -i -- "s/silk-rc/silk/g" config_file_path')
+					c.exec_command('PATH=$PATH:/usr/sbin; restart_command'')
 					print('Change from RC to Production.')
 			else:
 				print('It is not on RC.')
 		elif self.server_replaced.lower() == 'staging':
-			stdin, stdout, stderr = c.exec_command('grep -q "silk-staging" "/etc/umbo/config.ini" && echo found')
+			stdin, stdout, stderr = c.exec_command('grep -q "silk-staging" "config_file_path" && echo found')
 			grep_result = stdout.read().decode().rstrip()
 			if grep_result == 'found':
 				if self.server_to_replace.lower() == 'rc':
-					c.exec_command('sed -i -- "s/silk-staging/silk-rc/g" /etc/umbo/config.ini')
-					c.exec_command('PATH=$PATH:/usr/sbin; lilith -r all')
+					c.exec_command('sed -i -- "s/silk-staging/silk-rc/g" config_file_path')
+					c.exec_command('PATH=$PATH:/usr/sbin; restart_command')
 					print('Change from Staging to RC.')
 				elif self.server_to_replace.lower() == 'production':
-					c.exec_command('sed -i -- "s/silk-rc/silk/g" /etc/umbo/config.ini')
-					c.exec_command('PATH=$PATH:/usr/sbin; lilith -r all')
+					c.exec_command('sed -i -- "s/silk-rc/silk/g" config_file_path')
+					c.exec_command('PATH=$PATH:/usr/sbin; restart_command')
 					print('Change from Staging to Production.')
 			else:
 				print('It is not on Staging.')	
@@ -75,12 +75,12 @@ class Signal_Server_Change():
 			grep_result = stdout.read().decode().rstrip()
 			if grep_result == 'found':
 				if self.server_to_replace.lower() == 'rc':
-					c.exec_command('sed -i -- "s/silk-staging/silk-rc/g" /etc/umbo/config.ini')
-					c.exec_command('PATH=$PATH:/usr/sbin; lilith -r all')
+					c.exec_command('sed -i -- "s/silk-staging/silk-rc/g" config_file_path')
+					c.exec_command('PATH=$PATH:/usr/sbin; restart_command')
 					print('Change from Production to RC.')
 				elif self.server_to_replace.lower() == 'staging':
-					c.exec_command('sed -i -- "s/silk-rc/silk-staging/g" /etc/umbo/config.ini')
-					c.exec_command('PATH=$PATH:/usr/sbin; lilith -r all')
+					c.exec_command('sed -i -- "s/silk-rc/silk-staging/g" config_file_path')
+					c.exec_command('PATH=$PATH:/usr/sbin; restart_command')
 					print('Change from Production to Staging.')
 			else:
 				print('It is not on Production.')
