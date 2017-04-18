@@ -33,9 +33,9 @@ class Multi_Pycurl(threading.Thread):
 	###	Get jumboId and customerId which are needed for config.
 	def get_camera_info(self):
 		if self.aqua.lower() == 'rc':
-			mc = pymongo.MongoClient('mongodb://mongo-rc.umbocv-inc.com')
+			mc = pymongo.MongoClient('url')
 		elif self.aqua.lower() == 'staging':
-			mc = pymongo.MongoClient('mongodb://mongo.umbocv-inc.com')
+			mc = pymongo.MongoClient('url')
 		db = mc['hippo-staging']
 		cameras_collection = db['cameras']
 		cameras_properties = db['cameraproperties']
@@ -58,9 +58,9 @@ class Multi_Pycurl(threading.Thread):
 			"Accept: application/json"
 		]
 		if self.aqua.lower() == 'rc':
-			c.setopt(pycurl.URL, 'https://aqua-rc.umbocv-inc.com/auth/local')
+			c.setopt(pycurl.URL, 'url')
 		elif self.aqua.lower() == 'staging':
-			c.setopt(pycurl.URL, 'https://aqua.umbocv-inc.com/auth/local')
+			c.setopt(pycurl.URL, 'url')
 		output = BytesIO()
 		c.setopt(pycurl.POSTFIELDS, postfields)
 		c.setopt(pycurl.HTTPHEADER, headers)
@@ -97,9 +97,9 @@ class Multi_Pycurl(threading.Thread):
 							"Authorization: Bearer {}".format(self.token)
 						]
 						if self.aqua.lower() == 'rc':
-							c.setopt(pycurl.URL, 'https://aqua-rc.umbocv-inc.com/api/cameras/{}/properties'.format(self.customerId))
+							c.setopt(pycurl.URL, 'url'.format(self.customerId))
 						elif self.aqua.lower() == 'staging':
-							c.setopt(pycurl.URL, 'https://aqua.umbocv-inc.com/api/cameras/{}/properties'.format(self.customerId))
+							c.setopt(pycurl.URL, 'url'.format(self.customerId))
 						output = BytesIO()
 						c.setopt(pycurl.CUSTOMREQUEST, 'PUT')
 						c.setopt(pycurl.POSTFIELDS, postfields)
@@ -133,9 +133,9 @@ class Multi_Pycurl(threading.Thread):
 				'Authorization: Bearer {}'.format(self.token)
 			]
 			if self.aqua.lower() == 'rc':
-				c.setopt(pycurl.URL, 'https://aqua-rc.umbocv-inc.com/api/cameras/{}/properties'.format(self.customerId))
+				c.setopt(pycurl.URL, 'url'.format(self.customerId))
 			elif self.aqua.lower() == 'staging':
-				c.setopt(pycurl.URL, 'https://aqua.umbocv-inc.com/api/cameras/{}/properties'.format(self.customerId))
+				c.setopt(pycurl.URL, 'url'.format(self.customerId))
 			output = BytesIO()
 			#c.setopt(pycurl.VERBOSE, True) /// If you want verbose HTTP response
 			c.setopt(pycurl.CUSTOMREQUEST, 'PUT')
