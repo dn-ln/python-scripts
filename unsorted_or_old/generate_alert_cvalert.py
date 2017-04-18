@@ -6,7 +6,7 @@ import sys, re, os, subprocess
 
 env = {"email": os.environ['UMBOUSER'], "password": os.environ['UMBOPWD']}
 env_str = str(env).replace("'", '"')
-cmd = '''curl -X POST -d '{}' -H "Content-Type: application/json" https://aqua-rc.umbocv-inc.com/auth/local'''.format(env_str)
+cmd = '''curl -X POST -d '{}' -H "Content-Type: application/json" url'''.format(env_str)
 
 output = subprocess.check_output(cmd, stderr=subprocess.DEVNULL, shell=True)
 output2 = output.decode('ascii')
@@ -32,7 +32,7 @@ while days >= count:
   d4 = d2.strftime('%Y-%m-%d:%H:%M:%S') 			     # d5 = d2.isoformat() => if you want to have isoformat
 
   
-  data = {"jumboId": jumboId, "roiId": roiId, "snapshot": "https://www.umbocv.com/images/page_learnc_01-2.07877134.png", "previewVideo": "https://www.umbocv.com/images/page_learnc_01-2.07877134.png", "beginTime": int(d3) * 1000, "objectType": "person"}
+  data = {"jumboId": jumboId, "roiId": roiId, "snapshot": "https://www.umbocv.com/images/page_learnc_01-2.07877134.png", "previewVideo": "https://www.xxx.com/images/page_learnc_01-2.07877134.png", "beginTime": int(d3) * 1000, "objectType": "person"}
   '''
 
   codeopt = [('Disconnect', '0x81000002'), ('Overheat', '0x81000003'), ('Fail Record', '0x80070002'), ('Fail Record', '0x800A0002'), ('Fail Record', '0x800A0003')]
@@ -47,8 +47,8 @@ while days >= count:
   h1 = '-H "Authorization: Bearer {}"'.format(token)
   h2 = '-H "Content-Type: application/json"'
   h3 = '-H "Accept: application/json"'
-  # url = 'https://aqua-rc.umbocv-inc.com/api/alerts/cv' 	     # => for CV alert		     
-  url = 'https://aqua-rc.umbocv-inc.com/api/alerts' 		     # => for alert
+  # url = 'url' 	     # => for CV alert		     
+  url = 'url' 		     # => for alert
   l = [data_str, h1, h2, h3, url]
 
   cmd2 = ' '.join(l)
