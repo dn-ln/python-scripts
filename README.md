@@ -7,8 +7,8 @@ This repository collects all the Python scripts I write as testing tools and oth
  * `reaggregate` - aggregate mp4 file fize in a camera
  * `dpm_switch` - turn off/on monitor
  * `wifi_change` - change wi-fi connection
-* selenium - testing tools written in Selenium
- * exposure_toggler - change a camera's exposure value
- * camera_view_change - simulate a drag-in or drag-out action of camera stream
- * led_changer - change led settings
-* video_params - change a camera's video parameters
+* `selenium` - testing tools written in Selenium
+ * `exposure_toggler` - change a camera's exposure value
+ * `camera_view_change` - simulate a drag-in or drag-out action of camera stream
+ * `led_changer` - change led settings
+* `video_params` - change a camera's video parameters
