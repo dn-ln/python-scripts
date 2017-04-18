@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Wifi_Change():
 	def __init__(self):
-		self.wifi_ssid = ['RUMBO25', 'RUMBO3', 'Umbo_router_3']
+		self.wifi_ssid = ['w1', 'w2', 'w3']
 		self.wifi_pwd = [os.environ['WIFI_PWD'], os.environ['ZTE_PWD']]
 
 	def argument(self):
