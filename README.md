@@ -16,4 +16,6 @@ This repository collects all the Python scripts I write as testing tools and oth
   * `camera_view_change` - simulate a drag-in or drag-out action of camera stream
   * `led_changer` - change led settings
   
+* `appium` - testing tools written in Appium
+
 * `video_params` - change a camera's video parameters
